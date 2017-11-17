@@ -23,6 +23,7 @@ import touchDetect from 'lib/touch-detect';
 import { setLocale, setLocaleRawData } from 'state/ui/language/actions';
 import { isDefaultLocale } from 'lib/i18n-utils';
 import getCurrentLocaleSlug from 'state/selectors/get-current-locale-slug';
+import { makeLayout, render as clientRender } from 'controller';
 
 const debug = debugFactory( 'calypso' );
 
@@ -75,17 +76,27 @@ const loggedOutMiddleware = currentUser => {
 	}
 
 	if ( config.isEnabled( 'desktop' ) ) {
-		page( '/', () => {
-			if ( config.isEnabled( 'oauth' ) ) {
-				page.redirect( '/authorize' );
-			} else {
-				page.redirect( '/log-in' );
-			}
-		} );
+		page(
+			'/',
+			() => {
+				if ( config.isEnabled( 'oauth' ) ) {
+					page.redirect( '/authorize' );
+				} else {
+					page.redirect( '/log-in' );
+				}
+			},
+			makeLayout,
+			clientRender
+		);
 	} else if ( config.isEnabled( 'devdocs/redirect-loggedout-homepage' ) ) {
-		page( '/', () => {
-			page.redirect( '/devdocs/start' );
-		} );
+		page(
+			'/',
+			() => {
+				page.redirect( '/devdocs/start' );
+			},
+			makeLayout,
+			clientRender
+		);
 	}
 
 	const sections = require( 'sections' );

@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import ReactDom from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import page from 'page';
 
@@ -19,6 +18,7 @@ import translatorInvitation from 'layout/community-translator/invitation-utils';
 import { makeLayoutMiddleware } from './shared.js';
 import { getCurrentUser } from 'state/current-user/selectors';
 import userFactory from 'lib/user';
+import { makeLayout, render as clientRender } from 'controller';
 
 /**
  * Re-export
@@ -60,7 +60,7 @@ export const makeLayout = makeLayoutMiddleware( ReduxWrappedLayout );
  * divs.
  */
 export function clientRouter( route, ...middlewares ) {
-	page( route, ...middlewares, render );
+	page( route, ...middlewares, render, makeLayout, clientRender );
 }
 
 export function redirectLoggedIn( context, next ) {
@@ -74,6 +74,7 @@ export function redirectLoggedIn( context, next ) {
 	next();
 }
 
-export function render( context ) {
-	ReactDom.render( context.layout, document.getElementById( 'wpcom' ) );
+export function render( context, next ) {
+	context.wpcom = context.layout;
+	next();
 }

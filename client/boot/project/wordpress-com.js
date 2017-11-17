@@ -37,14 +37,14 @@ import { setNextLayoutFocus, activateNextLayoutFocus } from 'state/ui/layout-foc
 
 const debug = debugFactory( 'calypso' );
 
-function renderLayout( reduxStore ) {
+function renderLayout( context, reduxStore ) {
 	const Layout = require( 'controller' ).ReduxWrappedLayout;
 
 	const layoutElement = React.createElement( Layout, {
 		store: reduxStore,
 	} );
 
-	ReactDom.render( layoutElement, document.getElementById( 'wpcom' ) );
+	context.wpcom = layoutElement;
 
 	debug( 'Main layout rendered.' );
 }
@@ -273,7 +273,6 @@ export function setupMiddlewares( currentUser, reduxStore ) {
 		} else if ( ! isMultiTreeLayout && ! previousLayoutIsSingleTree ) {
 			debug( 'Unmounting multi-tree layout' );
 			ReactDom.unmountComponentAtNode( document.getElementById( 'primary' ) );
-			ReactDom.unmountComponentAtNode( document.getElementById( 'secondary' ) );
 		}
 		next();
 	} );

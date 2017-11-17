@@ -21,7 +21,7 @@ export function recordPageView( path, ...title ) {
 	analytics.pageView.record( path, concatTitle( ...title ) );
 }
 
-export function renderWithReduxStore( reactElement, domContainer, reduxStore ) {
+export function renderWithReduxStore( context, reactElement, domContainer, reduxStore ) {
 	const domContainerNode =
 		'string' === typeof domContainer ? document.getElementById( domContainer ) : domContainer;
 
