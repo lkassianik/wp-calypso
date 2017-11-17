@@ -64,7 +64,6 @@ import shortcodes from './shortcodes/reducer';
 import signup from './signup/reducer';
 import simplePayments from './simple-payments/reducer';
 import sites from './sites/reducer';
-import siteChecklist from './site-checklist/reducer';
 import siteRoles from './site-roles/reducer';
 import siteSettings from './site-settings/reducer';
 import stats from './stats/reducer';
@@ -136,7 +135,6 @@ const reducers = {
 	shortcodes,
 	signup,
 	sites,
-	siteChecklist,
 	siteRoles,
 	siteSettings,
 	simplePayments,
